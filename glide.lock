@@ -1,0 +1,6 @@
+hash: 74edec085b23fa84f2d7b800649aad89ffcfc206652752cd13d72523ed691300
+updated: 2016-09-18T21:52:29.965104889+09:00
+imports:
+- name: github.com/koron/go-dproxy
+  version: 009e1192eaace40a885c5b93c37613b3cae820d6
+testImports: []

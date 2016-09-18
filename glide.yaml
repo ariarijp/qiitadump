@@ -1,0 +1,4 @@
+package: github.com/ariarijp/qiitadump
+import:
+- package: github.com/koron/go-dproxy
+  version: v1.1
