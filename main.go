@@ -56,12 +56,17 @@ func getItems(token *string, page int, perPage int) ([]interface{}, error) {
 
 func main() {
 	token := flag.String("token", "", "Access token")
+	optWithoutPrivate := flag.String("without-private", "true", "Dump without private item")
 	flag.Parse()
 
 	if *token == "" {
 		log.Fatal("Access token is required. Please set your valid access token.")
 	}
 
+	withoutPrivate := true
+	if *optWithoutPrivate == "false" {
+		withoutPrivate = false
+	}
 	perPage := 20
 	for page := 1; ; page++ {
 		rawItems, err := getItems(token, page, perPage)
@@ -71,6 +76,10 @@ func main() {
 
 		for _, rawItem := range rawItems {
 			item := rawItem.(map[string]interface{})
+
+			if withoutPrivate && item["private"].(bool) {
+				continue
+			}
 
 			bytes, err := json.Marshal(item)
 			if err != nil {
