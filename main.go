@@ -13,8 +13,9 @@ import (
 	"github.com/koron/go-dproxy"
 )
 
-func getItems(token *string, page int, perPage int) ([]interface{}, error) {
-	u, err := url.Parse("http://qiita.com/api/v2/authenticated_user/items")
+func getItems(host *string, endpoint *string, token *string, page int, perPage int) ([]interface{}, error) {
+	endpointUrl := fmt.Sprintf("https://%s%s", *host, *endpoint)
+	u, err := url.Parse(endpointUrl)
 	if err != nil {
 		return nil, err
 	}
@@ -56,6 +57,8 @@ func getItems(token *string, page int, perPage int) ([]interface{}, error) {
 
 func main() {
 	optToken := flag.String("token", "", "Access token")
+	optHost := flag.String("host", "qiita.com", "Host")
+	optEndpoint := flag.String("endpoint", "/api/v2/authenticated_user/items", "Endpoint")
 	optWithoutPrivate := flag.String("without-private", "true", "Dump without private item")
 	flag.Parse()
 
@@ -70,7 +73,7 @@ func main() {
 
 	perPage := 20
 	for page := 1; ; page++ {
-		rawItems, err := getItems(optToken, page, perPage)
+		rawItems, err := getItems(optHost, optEndpoint, optToken, page, perPage)
 		if err != nil {
 			log.Fatal(err)
 		}
