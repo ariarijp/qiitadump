@@ -60,6 +60,7 @@ func main() {
 	optHost := flag.String("host", "qiita.com", "Host")
 	optEndpoint := flag.String("endpoint", "/api/v2/authenticated_user/items", "Endpoint")
 	optWithoutPrivate := flag.String("without-private", "true", "Dump without private item")
+	optLimit := flag.Int("limit", 20, "Limit the number of items")
 	flag.Parse()
 
 	if *optToken == "" {
@@ -72,6 +73,7 @@ func main() {
 	}
 
 	perPage := 20
+	num := 1
 	for page := 1; ; page++ {
 		rawItems, err := getItems(optHost, optEndpoint, optToken, page, perPage)
 		if err != nil {
@@ -91,9 +93,15 @@ func main() {
 			}
 
 			fmt.Println(string(bytes))
+
+			if num >= *optLimit {
+				break
+			}
+
+			num++
 		}
 
-		if len(rawItems) < perPage {
+		if num >= *optLimit || len(rawItems) < perPage {
 			break
 		}
 	}
