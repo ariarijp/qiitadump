@@ -16,8 +16,8 @@ Usage of ./qiitadump:
     	Limit the number of items (default 20)
   -token string
     	Access token
-  -without-private string
-    	Dump without private items (default "true")
+  -without-private
+    	Dump without private items (default true)
 $ qiitadump -token YOUR_ACCESS_TOKEN > dump.json
 ```
 
