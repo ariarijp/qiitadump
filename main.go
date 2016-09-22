@@ -13,9 +13,11 @@ import (
 	"github.com/koron/go-dproxy"
 )
 
-func getItems(host *string, endpoint *string, token *string, page int, perPage int) ([]interface{}, error) {
-	endpointUrl := fmt.Sprintf("https://%s%s", *host, *endpoint)
-	u, err := url.Parse(endpointUrl)
+const perPage int = 20
+
+func getItems(host *string, endpoint *string, token *string, page int) ([]interface{}, error) {
+	endpointURL := fmt.Sprintf("https://%s%s", *host, *endpoint)
+	u, err := url.Parse(endpointURL)
 	if err != nil {
 		return nil, err
 	}
@@ -72,10 +74,9 @@ func main() {
 		withoutPrivate = false
 	}
 
-	perPage := 20
 	num := 1
 	for page := 1; ; page++ {
-		rawItems, err := getItems(optHost, optEndpoint, optToken, page, perPage)
+		rawItems, err := getItems(optHost, optEndpoint, optToken, page)
 		if err != nil {
 			log.Fatal(err)
 		}
