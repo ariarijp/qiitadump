@@ -61,17 +61,12 @@ func main() {
 	optToken := flag.String("token", "", "Access token")
 	optHost := flag.String("host", "qiita.com", "Host")
 	optEndpoint := flag.String("endpoint", "/api/v2/authenticated_user/items", "Endpoint")
-	optWithoutPrivate := flag.String("without-private", "true", "Dump without private items")
+	optWithoutPrivate := flag.Bool("without-private", true, "Dump without private items")
 	optLimit := flag.Int("limit", 20, "Limit the number of items")
 	flag.Parse()
 
 	if *optToken == "" {
 		log.Fatal("Access token is required. Please set your valid access token.")
-	}
-
-	withoutPrivate := true
-	if *optWithoutPrivate == "false" {
-		withoutPrivate = false
 	}
 
 	num := 1
@@ -84,7 +79,7 @@ func main() {
 		for _, rawItem := range rawItems {
 			item := rawItem.(map[string]interface{})
 
-			if withoutPrivate && item["private"].(bool) {
+			if *optWithoutPrivate && item["private"].(bool) {
 				continue
 			}
 
