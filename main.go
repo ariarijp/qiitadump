@@ -61,7 +61,7 @@ func main() {
 	optToken := flag.String("token", "", "Access token")
 	optHost := flag.String("host", "qiita.com", "Host")
 	optEndpoint := flag.String("endpoint", "/api/v2/authenticated_user/items", "Endpoint")
-	optWithoutPrivate := flag.String("without-private", "true", "Dump without private item")
+	optWithoutPrivate := flag.String("without-private", "true", "Dump without private items")
 	optLimit := flag.Int("limit", 20, "Limit the number of items")
 	flag.Parse()
 
