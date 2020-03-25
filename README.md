@@ -21,6 +21,10 @@ Usage of ./qiitadump:
 $ qiitadump -token YOUR_ACCESS_TOKEN > dump.json
 ```
 
+### How do I get API Token for using it?
+
+You can get your API Token on https://qiita.com/settings/tokens/new
+
 ## License
 
 MIT
